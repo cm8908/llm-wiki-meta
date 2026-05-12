@@ -2,7 +2,10 @@
   "name": "llm-wiki-meta",
   "version": "0.1.0",
   "description": "Meta-level skills for managing a multi-category LLM wiki (Karpathy LLM Wiki pattern). Provides list-wikis, attach-wiki, detach-wiki, and create-wiki, which discover and scaffold sub-wikis under a single top-level llm-wiki/ root.",
-  "author": "cm8908",
+  "author": {
+    "name": "cm8908",
+    "url": "https://github.com/cm8908"
+  },
   "homepage": "https://github.com/cm8908/llm-wiki-meta",
   "repository": "https://github.com/cm8908/llm-wiki-meta",
   "license": "MIT",

@@ -1,0 +1,19 @@
+{
+  "name": "cm8908-llm-wiki",
+  "owner": {
+    "name": "cm8908",
+    "url": "https://github.com/cm8908"
+  },
+  "metadata": {
+    "description": "Personal Claude Code / Cowork marketplace by cm8908. Hosts the llm-wiki-meta plugin for managing Andrej Karpathy-style LLM wikis as a multi-category knowledge base."
+  },
+  "plugins": [
+    {
+      "name": "llm-wiki-meta",
+      "source": "./plugins/llm-wiki-meta",
+      "description": "Meta-level skills for managing a multi-category LLM wiki: list, attach, detach, and scaffold sub-wikis under a single top-level llm-wiki/ directory.",
+      "category": "knowledge-management",
+      "tags": ["llm", "wiki", "knowledge-base", "karpathy", "obsidian"]
+    }
+  ]
+}

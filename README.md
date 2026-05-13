@@ -23,7 +23,24 @@ This repository is its own marketplace. From Claude Code or Cowork:
 
 (or pass the full URL: `https://github.com/cm8908/llm-wiki-meta`)
 
-After install, all four skills appear in the slash-menu.
+After install, all skills appear in the slash-menu.
+
+### Reducing permission prompts
+
+Each skill's deterministic work is implemented as a Bash script (`run.sh`, `preview.sh`/`apply.sh`, or `resolve.sh`) that lives next to its `SKILL.md`. To skip the per-invocation Bash permission prompt, allowlist the install path once in `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash ~/.claude/plugins/**/llm-wiki-meta/skills/*/*.sh:*)",
+      "Bash(bash ~/.claude/plugins/**/llm-wiki-meta/lib/*.sh:*)"
+    ]
+  }
+}
+```
+
+The `fewer-permission-prompts` skill can do this for you automatically.
 
 ## Expected Layout
 
@@ -47,6 +64,27 @@ Each sub-wiki is detected by the presence of a `CLAUDE.md` **or** `AGENTS.md` fi
 Skills auto-detect the ROOT by walking up from the current working directory until they find an ancestor containing two or more sibling subdirectories that each have `CLAUDE.md` or `AGENTS.md`. You can also pass the root explicitly. See each `SKILL.md` for the contract.
 
 When using **`create-wiki` for the very first wiki in a brand-new `llm-wiki/`**, the heuristic cannot trigger — Claude will fall back to the current working directory after asking you to confirm.
+
+## Plugin Layout
+
+```
+plugins/llm-wiki-meta/
+├── lib/
+│   ├── wiki_lib.sh     # shared helpers: detect_root, read_attached, validate_*, …
+│   └── dispatch.sh     # shared dispatcher used by wiki-{ingest,query,lint}
+└── skills/
+    ├── list-wikis/        SKILL.md + run.sh
+    ├── current-wiki/      SKILL.md + run.sh
+    ├── attach-wiki/       SKILL.md + run.sh
+    ├── detach-wiki/       SKILL.md + run.sh
+    ├── create-wiki/       SKILL.md + scaffold.sh
+    ├── remove-wiki/       SKILL.md + preview.sh + apply.sh   (two-turn double-check)
+    ├── wiki-ingest/       SKILL.md + resolve.sh              (→ lib/dispatch.sh ingest)
+    ├── wiki-query/        SKILL.md + resolve.sh              (→ lib/dispatch.sh query)
+    └── wiki-lint/         SKILL.md + resolve.sh              (→ lib/dispatch.sh lint)
+```
+
+Each `SKILL.md` is contract + anti-patterns + a one-line "How To Run" pointing at its script. The scripts are the canonical implementation — Claude calls them deterministically instead of paraphrasing inline bash, which keeps invocations fast and the permission surface small.
 
 ## Skills Provided
 

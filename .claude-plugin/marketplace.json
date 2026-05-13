@@ -11,7 +11,7 @@
     {
       "name": "llm-wiki-meta",
       "source": "./plugins/llm-wiki-meta",
-      "description": "Meta-level skills for managing a multi-category LLM wiki: list, attach, detach, and scaffold sub-wikis under a single top-level llm-wiki/ directory.",
+      "description": "Meta-level skills for managing a multi-category LLM wiki: list, current, attach, detach, create, remove sub-wikis, plus attached-only wiki-ingest/wiki-query/wiki-lint dispatchers under a single top-level llm-wiki/ directory.",
       "category": "knowledge-management",
       "tags": ["llm", "wiki", "knowledge-base", "karpathy", "obsidian"]
     }

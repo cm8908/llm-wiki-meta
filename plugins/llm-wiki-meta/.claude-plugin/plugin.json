@@ -1,7 +1,7 @@
 {
   "name": "llm-wiki-meta",
   "version": "0.1.0",
-  "description": "Meta-level skills for managing a multi-category LLM wiki (Karpathy LLM Wiki pattern). Provides list-wikis, attach-wiki, detach-wiki, and create-wiki, which discover and scaffold sub-wikis under a single top-level llm-wiki/ root.",
+  "description": "Meta-level skills for managing a multi-category LLM wiki (Karpathy LLM Wiki pattern). Provides list-wikis, current-wiki, attach-wiki, detach-wiki, create-wiki, remove-wiki, and the wiki-ingest/wiki-query/wiki-lint dispatchers that operate strictly against the currently attached sub-wiki under a single top-level llm-wiki/ root.",
   "author": {
     "name": "cm8908",
     "url": "https://github.com/cm8908"

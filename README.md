@@ -5,9 +5,12 @@ A Claude Code / Cowork plugin that adds **meta-level skills** for managing a mul
 If you keep multiple `CLAUDE.md`-anchored wikis (e.g. `generative-embeddings/`, `llm-rl/`, `legal-embedding-eval/`) under a single top-level `llm-wiki/` directory, this plugin lets Claude:
 
 - **`list-wikis`** — enumerate sub-wikis with their layers (`wiki/manifests/raw/tools`) and the currently attached one.
+- **`current-wiki`** — one-line report of which sub-wiki is currently attached (or `(none)`).
 - **`attach-wiki <name>`** — pin the current session to a single sub-wiki so subsequent work runs inside that context. Persists to `<ROOT>/.claude/state/attached-wiki`.
 - **`detach-wiki`** — clear the attached state and return to the top-level meta scope.
 - **`create-wiki <name>`** — scaffold a new sub-wiki with the full template: `CLAUDE.md`, `wiki/{sources,concepts,methods,models,datasets,evaluations,experiments,synthesis,decisions,templates}`, `manifests/{raw_sources,datasets,experiments}.csv`, `tools/wiki_health.py`, and three per-wiki skills (`<name>-wiki-ingest|query|lint`). The wiki ships lint-clean and pre-registers `karpathy-llm-wiki` as the architecture source.
+- **`remove-wiki <name>`** — permanently delete a sub-wiki after a double-check (the user must re-type the exact wiki name). Also clears the attach state if the deleted wiki was the attached one.
+- **`wiki-ingest` / `wiki-query` / `wiki-lint`** — meta-level entry points that dispatch to the currently attached wiki's local `<name>-wiki-ingest|query|lint` skill. **They refuse if no wiki is attached** — the meta scope is never a valid target.
 
 ## Install
 
@@ -50,9 +53,14 @@ When using **`create-wiki` for the very first wiki in a brand-new `llm-wiki/`**,
 | Skill | What it does |
 | --- | --- |
 | `list-wikis` | Read-only listing of sub-wikis. |
+| `current-wiki` | Print which sub-wiki is currently attached (or `(none)`). |
 | `attach-wiki <name>` | Pin the session to a sub-wiki; warn on cross-wiki access. |
 | `detach-wiki` | Clear the attach state. |
 | `create-wiki <name> [topic]` | Scaffold a new sub-wiki from the Karpathy template. |
+| `remove-wiki <name>` | Permanently delete a sub-wiki after the user re-types the name. |
+| `wiki-ingest` | Dispatch to the attached wiki's `<name>-wiki-ingest`. Refuses if none attached. |
+| `wiki-query` | Dispatch to the attached wiki's `<name>-wiki-query`. Refuses if none attached. |
+| `wiki-lint` | Dispatch to the attached wiki's `<name>-wiki-lint`. Refuses if none attached. |
 
 ## License
 
